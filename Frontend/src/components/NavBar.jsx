@@ -3,17 +3,19 @@ import { navLinks } from "../constants"
 
 const NavBar = () => {
   return (
-    <header>
-      <nav >
+    <header className="site-header">
+      <nav className="nav-shell">
      
-        <img src="/logo.svg" alt="Apple logo" />
+        <a className="brand" href="/">
+          <img src="/logo.svg" alt="Apple logo" />
+        </a>
        
-       <ul>
+       <ul className="nav-links">
 
           {navLinks.map(({ label }) => (
 
             <li key={label}>
-              <a href = {label}>{label}</a>
+              <a href={`#${label.toLowerCase()}`}>{label}</a>
             </li>
           ))}
 

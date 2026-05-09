@@ -88,6 +88,9 @@ video {
   display: flex;
   align-items: center;
   gap: clamp(18px, 4vw, 40px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
   color: rgba(245, 245, 247, 0.72);
   font-family: "SF Medium", Arial, sans-serif;
   font-size: 13px;
