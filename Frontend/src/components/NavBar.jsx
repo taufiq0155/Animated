@@ -1,21 +1,19 @@
-import React from "react"
 import { navLinks } from "../constants"
 
 const NavBar = () => {
   return (
-    <header className="site-header">
-      <nav className="nav-shell">
+    <header>
+      <nav >
      
-        <a className="brand" href="/">
+        
           <img src="/logo.svg" alt="Apple logo" />
-        </a>
        
-       <ul className="nav-links">
+       <ul>
 
           {navLinks.map(({ label }) => (
 
             <li key={label}>
-              <a href={`#${label.toLowerCase()}`}>{label}</a>
+              <a href={{label}}>{label}</a>
             </li>
           ))}
 
