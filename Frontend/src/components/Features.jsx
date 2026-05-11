@@ -18,19 +18,35 @@ const ModelScroll = () => {
 
     // Pre-load all feature videos during component mount
     useEffect(() => {
-        featureSequence.forEach((feature) => {
+        const preloadVideo = (feature, preload = 'metadata') => {
             const v = document.createElement('video');
 
             Object.assign(v, {
                 src: feature.videoPath,
                 muted: true,
                 playsInline: true,
-                preload: 'auto',
+                preload,
                 crossOrigin: 'anonymous',
             });
 
             v.load();
-        })
+        }
+
+        preloadVideo(featureSequence[0], 'auto');
+
+        const loadRest = () => {
+            featureSequence.slice(1).forEach((feature) => preloadVideo(feature));
+        }
+
+        if ('requestIdleCallback' in window) {
+            const idleId = window.requestIdleCallback(loadRest);
+
+            return () => window.cancelIdleCallback(idleId);
+        }
+
+        const timeoutId = setTimeout(loadRest, 1000);
+
+        return () => clearTimeout(timeoutId);
     }, []);
 
     useGSAP(() => {
@@ -92,13 +108,13 @@ const Features = () => {
         <section id="features">
             <h2>See it all in a new light.</h2>
 
-            <Canvas id="f-canvas" camera={{}}>
+            <Canvas id="f-canvas" camera={{}} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
                 <StudioLights />
                 <ambientLight intensity={0.5} />
                 <ModelScroll />
             </Canvas>
 
-            <div className="absolute inset-0">
+            <div className="absolute inset-0 z-50 pointer-events-none">
                 {features.map((feature, index) => (
                     <div key={feature.id} className={clsx('box', `box${index + 1}`, feature.styles)}>
                         <img src={feature.icon} alt={feature.highlight} />
