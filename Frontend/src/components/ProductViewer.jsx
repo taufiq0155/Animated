@@ -13,10 +13,10 @@ const ProductViewer = () => {
     const isMobile = useMediaQuery({query: '(max-width:1024px)'})
     return (
         <section id="product-viewer">
-            <h2>take a closer look.</h2>
+            <h2>Take a closer look.</h2>
 
             <div className="controls">
-               <p className="info">Macbookpro {scale} in {color}</p>
+               
 
                <div className="flex-center gap-5 mt-5">
                 <div className="color-control">
